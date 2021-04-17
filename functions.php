@@ -20,3 +20,8 @@ function remove_items_from_edit( $views ) {
     unset($views['pending']);
     return $views;
 }
+
+add_action( 'wp_enqueue_scripts', 'enqueue_parent_styles' );
+function enqueue_parent_styles() {
+   wp_enqueue_style( 'parent-style', get_template_directory_uri().'/style.css' );
+}

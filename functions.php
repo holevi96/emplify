@@ -1,3 +1,5 @@
+<?php 
+
 function alter_the_edit_screen_query( $wp_query ) {
     if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/wp-admin/edit.php' ) !== false ) {
         if ( !current_user_can( 'activate_plugins' ) )  {

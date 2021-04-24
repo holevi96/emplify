@@ -73,12 +73,16 @@ add_action('new_to_publish', 'new_eset');
 add_action( 'save_post_esetek',  'send_email', 10, 3 );
 
 function send_email( $post_id, $post, $update ) {
-  if($update === 0){
+      // If an old book is being updated, exit
+      if ( $update ) {
+        return;
+    }
+  
     $to = 'holevi96@gmail.com';
     $subject = 'The subject';
     $body = 'The email body content';
     $headers = array('Content-Type: text/html; charset=UTF-8');
     
     wp_mail( $to, $subject, $body, $headers );
-  }
+  
 }

@@ -66,3 +66,18 @@ function save_post_functions( $post_id ) {
   update_field('lezajlott_alkalmak_szama', count($tanacsadas_datumai), $post_id);
   update_field('maximum_alkalmak_szama', (int)$max, $post_id);
 }
+
+add_action('new_to_publish', 'new_eset');
+
+
+$post_type = "esetek";
+add_action( 'save_post_' . $post_type, function( $post_id, $post, $update ) {
+    if($update === 0){
+      $to = 'holevi96@gmail.com';
+      $subject = 'The subject';
+      $body = 'The email body content';
+      $headers = array('Content-Type: text/html; charset=UTF-8');
+      
+      wp_mail( $to, $subject, $body, $headers );
+    }
+} );

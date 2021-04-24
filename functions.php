@@ -66,6 +66,6 @@ function sync_acf($post_id, $post, $update) {
     
   $ceg_id = get_field('munkavallalo_cege', $post_id); // NOTE: enter the name of the ACF field here
   $max = get_field('face_to_face_maximum_appointment', $ceg_id);
-  update_field('face_to_face_maximum_appointment', (int)$max, $post_id);
+  update_field('face_to_face_maximum_appointment', 10, $post_id);
 }
 add_action('save_post', 'sync_acf', 10, 3);

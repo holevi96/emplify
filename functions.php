@@ -55,9 +55,17 @@ function validate_empty_fields( $valid, $value, $field, $input ){
 	
 }
 
- add_filter('acf/update_value/name=maximum_alkalmak_szama', 'my_acf_update_value', 10, 4);
+ /*add_filter('acf/update_value/name=maximum_alkalmak_szama', 'my_acf_update_value', 10, 4);
  function my_acf_update_value( $value, $post_id, $field, $original=0 ) {
   $ceg_id = $_POST['acf']['field_607c123c2d4f8'];
   $max = get_field('face_to_face_maximum_appointment', $ceg_id);
   return (int)$max;
+}*/
+
+function sync_acf($post_id, $post, $update) {
+    
+  $ceg_id = get_field('munkavallalo_cege', $post_id); // NOTE: enter the name of the ACF field here
+  $max = get_field('face_to_face_maximum_appointment', $ceg_id);
+  update_field('face_to_face_maximum_appointment', (int)$max, $post_id);
 }
+add_action('save_post', 'sync_acf', 10, 3);

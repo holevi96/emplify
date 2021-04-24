@@ -62,10 +62,19 @@ function validate_empty_fields( $valid, $value, $field, $input ){
   return (int)$max;
 }*/
 
-function sync_acf($post_id, $post, $update) {
+/*function sync_acf($post_id, $post, $update) {
     
   $ceg_id = get_field('munkavallalo_cege', $post_id); // NOTE: enter the name of the ACF field here
   $max = get_field('face_to_face_maximum_appointment', $ceg_id);
   update_field('face_to_face_maximum_appointment', 10, $post_id);
 }
-add_action('save_post', 'sync_acf', 10, 3);
+add_action('save_post', 'sync_acf', 10, 3);*/
+
+add_action('acf/save_post', 'my_acf_save_post', 5);
+function my_acf_save_post( $post_id ) {
+    if( isset($_POST['acf']['field_607c123c2d4f8']) ) {
+      $ceg_id = $_POST['acf']['field_607c123c2d4f8'];
+      $max = get_field('face_to_face_maximum_appointment', $ceg_id);
+      update_field('face_to_face_maximum_appointment', 10, $post_id);
+    }
+}

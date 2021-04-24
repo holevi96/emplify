@@ -72,9 +72,10 @@ add_action('save_post', 'sync_acf', 10, 3);*/
 
 add_action('acf/save_post', 'my_acf_save_post', 5);
 function my_acf_save_post( $post_id ) {
-    if( isset($_POST['acf']['field_607c123c2d4f8']) ) {
-      $ceg_id = $_POST['acf']['field_607c123c2d4f8'];
+  update_field('field_6082f512aa790', 10, $post_id);
+    /*if( isset($_POST['acf']['field_607c123c2d4f8']) ) {
+      $ceg_id = $_POST['acf']['field_607c123c2d4f8'][0];
       $max = get_field('face_to_face_maximum_appointment', $ceg_id);
       update_field('field_6082f512aa790', 10, $post_id);
-    }
+    }*/
 }

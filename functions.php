@@ -70,14 +70,15 @@ function save_post_functions( $post_id ) {
 add_action('new_to_publish', 'new_eset');
 
 
-$post_type = "esetek";
-add_action( 'save_post_' . $post_type, function( $post_id, $post, $update ) {
-    if($update === 0){
-      $to = 'holevi96@gmail.com';
-      $subject = 'The subject';
-      $body = 'The email body content';
-      $headers = array('Content-Type: text/html; charset=UTF-8');
-      
-      wp_mail( $to, $subject, $body, $headers );
-    }
-} );
+add_action( 'save_post_esetek',  'send_email', 10, 3 );
+
+function send_email( $post_id, $post, $update ) {
+  if($update === 0){
+    $to = 'holevi96@gmail.com';
+    $subject = 'The subject';
+    $body = 'The email body content';
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+    
+    wp_mail( $to, $subject, $body, $headers );
+  }
+}

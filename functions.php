@@ -73,8 +73,8 @@ add_action('save_post', 'sync_acf', 10, 3);*/
 add_action('acf/save_post', 'save_post_functions', 10);
 
 function save_post_functions( $post_id ) {
-  //$ceg_id = get_field('munkavallalo_cege', $post_id)[0]; // NOTE: enter the name of the ACF field here
-  //$max = get_field('face_to_face_maximum_appointment', $ceg_id);
+  $ceg_id = get_field('munkavallalo_cege', $post_id)[0]; // NOTE: enter the name of the ACF field here
+  $max = get_field('face_to_face_maximum_appointment', $ceg_id);
 
-  update_field('face_to_face_maximum_appointment', 10, $post_id);
+  update_field('maximum_alkalmak_szama', (int)$max, $post_id);
 }

@@ -58,5 +58,6 @@ function validate_empty_fields( $valid, $value, $field, $input ){
  add_filter('acf/update_value/name=maximum_alkalmak_szama', 'my_acf_update_value', 10, 4);
  function my_acf_update_value( $value, $post_id, $field, $original=0 ) {
   $ceg_id = $_POST['acf']['field_607c123c2d4f8'];
-  return get_field('face_to_face_maximum_appointment', $ceg_id);
+  $max = get_field('face_to_face_maximum_appointment', $ceg_id);
+  return "asd";
 }

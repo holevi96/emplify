@@ -27,7 +27,15 @@ function modify_post_title( $data )
   return $data; // Returns the modified data.
 }*/
 
+/**Ez a rész arra jó, hogy ne lehessen elmenteni úgy az esetet, hogy a következő mezők üresek, ha már meg van adva lezárás dátum. */
 add_filter('acf/validate_value/name=hogyan_zarult',	'validate_empty_fields', 10, 4);
+add_filter('acf/validate_value/name=munkabol_kihagyott_napok_szama',	'validate_empty_fields', 10, 4);
+add_filter('acf/validate_value/name=funkcio_elotte',	'validate_empty_fields', 10, 4);
+add_filter('acf/validate_value/name=funkcio_utana',	'validate_empty_fields', 10, 4);
+add_filter('acf/validate_value/name=stressz_elotte',	'validate_empty_fields', 10, 4);
+add_filter('acf/validate_value/name=stressz_utana',	'validate_empty_fields', 10, 4);
+add_filter('acf/validate_value/name=phq_elotte',	'validate_empty_fields', 10, 4);
+add_filter('acf/validate_value/name=phq_utana',	'validate_empty_fields', 10, 4);
 
 function validate_empty_fields( $valid, $value, $field, $input ){
 	
@@ -35,7 +43,7 @@ function validate_empty_fields( $valid, $value, $field, $input ){
 	if( !$valid ) {return $valid; }
 	
 
-	$is_event_public = $_POST['acf']['field_607c1199cbe87']; // This field is a checkbox
+	$is_event_public = $_POST['acf']['field_607c1199cbe87']; // Ez a mező a lezárás dátuma mező.
 	
 	if($is_event_public){
 		if(!$value){

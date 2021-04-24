@@ -70,7 +70,7 @@ function validate_empty_fields( $valid, $value, $field, $input ){
 }
 add_action('save_post', 'sync_acf', 10, 3);*/
 
-add_action( 'update_post_meta', 'update_post', 10, 4 );
+add_action('acf/save_post', 'update_post', 1);
 
 function update_post( $post_id ) {
   update_field('field_6082f512aa790', 10, $post_id);

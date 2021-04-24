@@ -59,5 +59,5 @@ function validate_empty_fields( $valid, $value, $field, $input ){
  function my_acf_update_value( $value, $post_id, $field, $original=0 ) {
   $ceg_id = $_POST['acf']['field_607c123c2d4f8'];
   $max = get_field('face_to_face_maximum_appointment', $ceg_id);
-  return "asd";
+  return (int)$max;
 }

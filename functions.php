@@ -62,8 +62,8 @@ function save_post_functions( $post_id ) {
   $ceg_id = get_field('munkavallalo_cege', $post_id)[0]; // NOTE: enter the name of the ACF field here
   $max = get_field('face_to_face_maximum_appointment', $ceg_id);
   $tanacsadas_datumai = get_field('tanacsadas_datumai', $post_id);
-
-  update_field('lezajlott_alkalmak_szama', count($tanacsadas_datumai), $post_id);
+  $c = (is_array($tanacsadas_datumai))?count($tanacsadas_datumai):0;
+  update_field('lezajlott_alkalmak_szama', $c, $post_id);
   update_field('maximum_alkalmak_szama', (int)$max, $post_id);
 
   //saveing author based on tanacsado field

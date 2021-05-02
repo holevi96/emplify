@@ -73,6 +73,13 @@ function save_post_functions( $post_id ) {
     'post_author' => $author_id,
   );
   wp_update_post( $arg );
+  if(get_field("lezaras_datuma")){
+    wp_set_object_terms( $post_id, 2, 'category' ); //zárt kategória ID-je: 2
+
+  }else{
+    wp_set_object_terms( $post_id, 1, 'category' ); //nyitott kategória ID-je: 2
+
+  }
 
 }
 

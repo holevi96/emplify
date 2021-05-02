@@ -94,13 +94,16 @@ function send_email( $post_id, $post, $update ) {
         return;
     }
     $author_id = get_field("tanacsado_neve", $post_id)['ID'];
-    $user_email = get_user_by($author_id)->user_email;
-    $to = $user_email;
-    $subject = 'Új eset került rögzítésre az Emplifyon!';
-    $body = 'Tekintse meg nyitott ügyeit <a href="http://emplify.teachother.hu/wp-admin/edit.php?post_type=esetek">itt</a>';
-    $headers = array('Content-Type: text/html; charset=UTF-8');
-    
-    wp_mail( $to, $subject, $body, $headers );
+    if($author_id){
+      $user_email = get_user_by('ID', $author_id)->user_email;
+      $to = $user_email;
+      $subject = 'Új eset került rögzítésre az Emplifyon!';
+      $body = 'Tekintse meg nyitott ügyeit <a href="http://emplify.teachother.hu/wp-admin/edit.php?post_type=esetek">itt</a>';
+      $headers = array('Content-Type: text/html; charset=UTF-8');
+      
+      wp_mail( $to, $subject, $body, $headers );
+    }
+
   
 }
 

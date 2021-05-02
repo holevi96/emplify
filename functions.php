@@ -65,6 +65,15 @@ function save_post_functions( $post_id ) {
 
   update_field('lezajlott_alkalmak_szama', count($tanacsadas_datumai), $post_id);
   update_field('maximum_alkalmak_szama', (int)$max, $post_id);
+
+  //saveing author based on tanacsado field
+  $author_id = get_field("tanacsado_neve", $post_id);
+  $arg = array(
+    'ID' => $post_id,
+    'post_author' => $author_id,
+  );
+  wp_update_post( $arg );
+
 }
 
 add_action('new_to_publish', 'new_eset');
@@ -86,3 +95,4 @@ function send_email( $post_id, $post, $update ) {
     wp_mail( $to, $subject, $body, $headers );
   
 }
+

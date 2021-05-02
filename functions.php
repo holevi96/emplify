@@ -67,7 +67,7 @@ function save_post_functions( $post_id ) {
   update_field('maximum_alkalmak_szama', (int)$max, $post_id);
 
   //saveing author based on tanacsado field
-  $author_id = get_field("tanacsado_neve", $post_id)['id'];
+  $author_id = get_field("tanacsado_neve", $post_id)['ID'];
   $arg = array(
     'ID' => $post_id,
     'post_author' => $author_id,

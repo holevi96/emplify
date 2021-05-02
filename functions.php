@@ -70,7 +70,7 @@ function save_post_functions( $post_id ) {
   $author_id = get_field("tanacsado_neve", $post_id)['id'];
   $arg = array(
     'ID' => $post_id,
-    'post_author' => $author_id,
+    'post_author' => 2,
   );
   wp_update_post( $arg );
 

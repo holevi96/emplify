@@ -68,7 +68,7 @@ function save_post_functions( $post_id ) {
 
   //saveing author based on tanacsado field
   $author_id = get_field("tanacsado_neve", $post_id)['ID'];
-  $kezdes_datum = get_field("kezdes_datum",$post_id);
+  
   $arg = array(
     'ID' => $post_id,
     'post_author' => $author_id,
@@ -111,7 +111,8 @@ function send_email( $post_id, $post, $update ) {
 function my_function( $post_id )
         {
           if(get_post_type($post_id) === "esetek"){
-            $postdate = '2010-02-23 18:57:33';
+            $kezdes_datum = get_field("kezdes_datum",$post_id);
+            $postdate = $kezdes_datum + ' 00:00:00';
 
             $my_args = array(
                'ID' => $post_id,

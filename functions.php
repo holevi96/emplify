@@ -68,9 +68,11 @@ function save_post_functions( $post_id ) {
 
   //saveing author based on tanacsado field
   $author_id = get_field("tanacsado_neve", $post_id)['ID'];
+  $kezdes_datum = get_field("kezdes_datum",$post_id);
   $arg = array(
     'ID' => $post_id,
     'post_author' => $author_id,
+    'post_date' => $kezdes_datum
   );
   wp_update_post( $arg );
   if(get_field("lezaras_datuma")){

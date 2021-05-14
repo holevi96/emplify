@@ -112,7 +112,7 @@ function my_function( $post_id )
         {
           if(get_post_type($post_id) === "esetek"){
             $kezdes_datum = get_field("kezdes_datuma",$post_id);
-            $postdate = $kezdes_datum + ' 00:00:00';
+            $postdate = $kezdes_datum . ' 00:00:00';
 
             $my_args = array(
                'ID' => $post_id,

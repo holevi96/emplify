@@ -72,7 +72,7 @@ function save_post_functions( $post_id ) {
   $arg = array(
     'ID' => $post_id,
     'post_author' => $author_id,
-    'post_date' => $kezdes_datum + " 00:00:00"
+    'post_date' => "0000-00-00 00:00:00"
   );
   wp_update_post( $arg );
   if(get_field("lezaras_datuma")){

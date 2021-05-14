@@ -100,7 +100,7 @@ function send_email( $post_id, $post, $update ) {
       if ( $update ) {
         return;
     }
-    $author_id = get_field("tanacsado_neve", $post_id)['ID'];
+    $author_id = get_field("tanacsado_neve", $post_id);
     if($author_id){
       $user_email = get_user_by('ID', $author_id)->user_email;
       $to = $user_email;

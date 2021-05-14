@@ -59,28 +59,34 @@ function validate_empty_fields( $valid, $value, $field, $input ){
 add_action('acf/save_post', 'save_post_functions', 11);
 
 function save_post_functions( $post_id ) {
-  $ceg_id = get_field('munkavallalo_cege', $post_id)[0]; // NOTE: enter the name of the ACF field here
-  $max = get_field('face_to_face_maximum_appointment', $ceg_id);
-  $tanacsadas_datumai = get_field('tanacsadas_datumai', $post_id);
-  $datumok = explode(",", $tanacsadas_datumai);
-  update_field('lezajlott_alkalmak_szama', count($datumok), $post_id);
-  update_field('maximum_alkalmak_szama', (int)$max, $post_id);
+  if(get_post_type($post_id) === "esetek"){
 
-  //saveing author based on tanacsado field
-  $author_id = get_field("tanacsado_neve", $post_id)['ID'];
+    $ceg_id = get_field('munkavallalo_cege', $post_id)[0]; // NOTE: enter the name of the ACF field here
+    $max = get_field('face_to_face_maximum_appointment', $ceg_id);
+    $tanacsadas_datumai = get_field('tanacsadas_datumai', $post_id);
+    $datumok = explode(",", $tanacsadas_datumai);
+    update_field('lezajlott_alkalmak_szama', count($datumok), $post_id);
+    update_field('maximum_alkalmak_szama', (int)$max, $post_id);
   
-  $arg = array(
-    'ID' => $post_id,
-    'post_author' => $author_id,
-  );
-  wp_update_post( $arg );
-  if(get_field("lezaras_datuma")){
-    wp_set_object_terms( $post_id, 2, 'category' ); //zárt kategória ID-je: 2
-
-  }else{
-    wp_set_object_terms( $post_id, 1, 'category' ); //nyitott kategória ID-je: 1
-
+    //saveing author based on tanacsado field
+    $author_id = get_field("tanacsado_neve", $post_id)['ID'];
+    $kezdes_datum = get_field("kezdes_datuma",$post_id);
+    $postdate = $kezdes_datum . ' 00:00:00';
+    $arg = array(
+      'ID' => $post_id,
+      'post_author' => $author_id,
+      'post_date' => $postdate
+    );
+    wp_update_post( $arg );
+    if(get_field("lezaras_datuma")){
+      wp_set_object_terms( $post_id, 2, 'category' ); //zárt kategória ID-je: 2
+  
+    }else{
+      wp_set_object_terms( $post_id, 1, 'category' ); //nyitott kategória ID-je: 1
+  
+    }
   }
+
 
 }
 
@@ -107,30 +113,3 @@ function send_email( $post_id, $post, $update ) {
 
   
 }
-
-function my_function( $post_id )
-        {
-          if(get_post_type($post_id) === "esetek"){
-            $kezdes_datum = get_field("kezdes_datuma",$post_id);
-            $postdate = $kezdes_datum . ' 00:00:00';
-
-            $my_args = array(
-               'ID' => $post_id,
-               'post_date' => $postdate
-            );
-
-            if ( ! wp_is_post_revision( $post_id ) ){
-
-                    // unhook this function so it doesn't loop infinitely
-                    remove_action('save_post', 'my_function');
-
-                    // update the post, which calls save_post again
-                    wp_update_post( $my_args );
-
-                    // re-hook this function
-                    add_action('save_post', 'my_function');
-            }
-          }
-
-        }
-add_action('save_post', 'my_function');

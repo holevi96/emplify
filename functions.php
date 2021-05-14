@@ -72,7 +72,6 @@ function save_post_functions( $post_id ) {
   $arg = array(
     'ID' => $post_id,
     'post_author' => $author_id,
-    'post_date' => "0000-00-00 00:00:00"
   );
   wp_update_post( $arg );
   if(get_field("lezaras_datuma")){
@@ -109,3 +108,28 @@ function send_email( $post_id, $post, $update ) {
   
 }
 
+function my_function( $post_id )
+        {
+          if(get_post_type($post_id) === "esetek"){
+            $postdate = '2010-02-23 18:57:33';
+
+            $my_args = array(
+               'ID' => $post_id,
+               'post_date' => $postdate
+            );
+
+            if ( ! wp_is_post_revision( $post_id ) ){
+
+                    // unhook this function so it doesn't loop infinitely
+                    remove_action('save_post', 'my_function');
+
+                    // update the post, which calls save_post again
+                    wp_update_post( $my_args );
+
+                    // re-hook this function
+                    add_action('save_post', 'my_function');
+            }
+          }
+
+        }
+add_action('save_post', 'my_function');

@@ -72,14 +72,14 @@ function save_post_functions( $post_id ) {
   $arg = array(
     'ID' => $post_id,
     'post_author' => $author_id,
-    'post_date' => $kezdes_datum
+    'post_date' => $kezdes_datum + " 00:00:00"
   );
   wp_update_post( $arg );
   if(get_field("lezaras_datuma")){
     wp_set_object_terms( $post_id, 2, 'category' ); //zárt kategória ID-je: 2
 
   }else{
-    wp_set_object_terms( $post_id, 1, 'category' ); //nyitott kategória ID-je: 2
+    wp_set_object_terms( $post_id, 1, 'category' ); //nyitott kategória ID-je: 1
 
   }
 

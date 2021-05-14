@@ -111,7 +111,7 @@ function send_email( $post_id, $post, $update ) {
 function my_function( $post_id )
         {
           if(get_post_type($post_id) === "esetek"){
-            $kezdes_datum = get_field("kezdes_datum",$post_id);
+            $kezdes_datum = get_field("kezdes_datuma",$post_id);
             $postdate = $kezdes_datum + ' 00:00:00';
 
             $my_args = array(
